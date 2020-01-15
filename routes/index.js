@@ -8,7 +8,9 @@ router.get('/', function(req, res, next) {
 //登出
 router.get(`/logout`,function(req,res,next){
    req.session.username = null;
-   console.log(`session`,req.session.username);
+   //console.log(`session`,req.session.username);
    res.redirect(`/login`);
 })
 module.exports = router;
+
+//ceshigengxing
