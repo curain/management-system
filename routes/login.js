@@ -19,10 +19,10 @@ const userSchema = mongoose.Schema({
 const user = mongoose.model(`users`, userSchema);
 
 
-//登录   路由：'/login'
-router.get(`/`, function (req, res, next) {
-  res.render('login', {});
-});
+// //登录   路由：'/login'
+// router.get(`/`, function (req, res, next) {
+//   res.render('login', {});
+// });
 //接受json数据格式，查找数据库，返回结果
 router.post(`/`, jsonParser, function (req, res, next) {
   let data = {
@@ -32,8 +32,6 @@ router.post(`/`, jsonParser, function (req, res, next) {
 
   user.find((data),function(err,dcs){
     if(err) throw err;
-    console.log(data);
-    console.log(dcs);
     if(dcs.length>0){
       req.session.username = data.username;
       res.json({"code":0});
