@@ -8,6 +8,7 @@ var session = require('express-session')
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
+var testRouter = require('./routes/test');
 
 var app = express();
 
@@ -22,6 +23,9 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//test
+app.use(`/test`,testRouter);
 //session配置
 app.use(session({
   secret: 'keyboard cat',

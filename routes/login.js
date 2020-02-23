@@ -9,6 +9,7 @@ var router = express.Router();
 mongoose.connect(`mongodb://localhost:27017/login`, {
   useMongoClient: true
 })
+
 //schema
 const userSchema = mongoose.Schema({
   username: String,
@@ -28,8 +29,11 @@ router.post(`/`, jsonParser, function (req, res, next) {
     username: req.body.username,
     password: req.body.password,
   }
+
   user.find((data),function(err,dcs){
     if(err) throw err;
+    console.log(data);
+    console.log(dcs);
     if(dcs.length>0){
       req.session.username = data.username;
       res.json({"code":0});
