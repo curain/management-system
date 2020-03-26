@@ -3,12 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var session = require('express-session')
 
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var testRouter = require('./routes/test');
+var orderRouter = require('./routes/order')
+var energyRouter = require('./routes/energy')
 
 var app = express();
 
@@ -26,31 +27,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //test
 app.use(`/test`,testRouter);
-//session配置
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAge: 1000 * 60 * 5
-  } //指定登录会话的有效时长为5分钟
-}))
 
-//登录拦截中间件
-app.get('*', function (req, res, next) {
-  var username = req.session.username;
-  var path = req.path;
-  console.log(username);
-  if (path != `/login`) {
-    if (!username) {
-      return res.redirect(`/login`);
-    }
-  }
-  next();
-})
-
+//路由定义
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/order',orderRouter);
+app.use('/energy',energyRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -33,7 +33,6 @@ router.post(`/`, jsonParser, function (req, res, next) {
   user.find((data),function(err,dcs){
     if(err) throw err;
     if(dcs.length>0){
-      req.session.username = data.username;
       res.json({"code":0});
     }
     else{
